@@ -11,10 +11,10 @@ namespace TestWebApi.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SystemType = table.Column<string>(type: "TEXT", nullable: false),
-                    OrderNumber = table.Column<string>(nullable: true),
+                    OrderNumber = table.Column<long>(nullable: false),
                     SourceOrder = table.Column<string>(nullable: true),
                     ConvertedOrder = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false)

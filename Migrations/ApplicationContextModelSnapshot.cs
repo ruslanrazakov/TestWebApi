@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestWebApi.Data;
-using TestWebApi.Models;
 
 namespace TestWebApi.Migrations
 {
@@ -19,7 +18,7 @@ namespace TestWebApi.Migrations
 
             modelBuilder.Entity("TestWebApi.Models.OrderModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -29,13 +28,14 @@ namespace TestWebApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OrderNumber")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("OrderNumber")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SourceOrder")
                         .HasColumnType("TEXT");
 
-                    b.Property<SystemType>("SystemType")
+                    b.Property<string>("SystemType")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

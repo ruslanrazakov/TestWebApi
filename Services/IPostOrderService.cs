@@ -6,6 +6,6 @@ namespace TestWebApi.Services
 {
     public interface IPostOrderService
     {
-        public Task <bool> Post(SystemType type, Stream requestBody);
+        public Task <bool> PostAsync(SystemType type, Stream requestBody);
     }
 }

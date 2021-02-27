@@ -20,7 +20,7 @@ namespace TestWebApi.Controllers
         [Route("talabat")]
         public async Task<ActionResult> PostTalabatOrderModel()
         {
-            bool success = await _postOrderService.Post(SystemType.Talabat, Request.Body);
+            bool success = await _postOrderService.PostAsync(SystemType.Talabat, Request.Body);
             if(success)
                 return Ok();
             else
@@ -29,9 +29,9 @@ namespace TestWebApi.Controllers
 
         [HttpPost]
         [Route("zomato")]
-        public async Task<ActionResult<OrderModel>> PostZomatoOrderModel()
+        public async Task<ActionResult> PostZomatoOrderModel()
         {
-            bool success = await _postOrderService.Post(SystemType.Zomato, Request.Body);
+            bool success = await _postOrderService.PostAsync(SystemType.Zomato, Request.Body);
             if(success)
                 return Ok();
             else
@@ -40,9 +40,9 @@ namespace TestWebApi.Controllers
 
         [HttpPost]
         [Route("uber")]
-        public async Task<ActionResult<OrderModel>> PostUberOrderModel()
+        public async Task<ActionResult> PostUberOrderModel()
         {
-            bool success = await _postOrderService.Post(SystemType.Uber, Request.Body);
+            bool success = await _postOrderService.PostAsync(SystemType.Uber, Request.Body);
             if(success)
                 return Ok();
             else

@@ -32,7 +32,7 @@ namespace TestWebApi
             services.AddControllers();
 
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("MainDataBase")));  
+                options.UseSqlite(Configuration.GetConnectionString("MainDatabase")));  
                 services.AddControllers().AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new Converters.CustomJsonStringEnumConverter());
