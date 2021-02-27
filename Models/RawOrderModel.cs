@@ -16,7 +16,7 @@ namespace TestWebApi.Models
         public long Id { get; set; } 
         public string Name { get; set; } 
         public string Comment { get; set; } 
-        public string Quantity { get; set; } 
+        public int Quantity { get; set; } 
         public decimal PaidPrice { get; set; } 
         public decimal UnitPrice { get; set; } 
         public string RemoteCode { get; set; } 

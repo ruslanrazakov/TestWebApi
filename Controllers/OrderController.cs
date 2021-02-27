@@ -10,10 +10,12 @@ namespace TestWebApi.Controllers
     public class OrderController : ControllerBase
     {
         public IPostOrderService _postOrderService;
+        public IOrdersProcessor _processor;
 
-        public OrderController(IPostOrderService postOrderService)
+        public OrderController(IPostOrderService postOrderService, IOrdersProcessor p)
         {
             _postOrderService = postOrderService;
+            _processor = p;
         }
 
         [HttpPost]

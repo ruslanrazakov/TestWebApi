@@ -3,7 +3,6 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TestWebApi.Converters;
 using TestWebApi.Data;
 using TestWebApi.Models;
 
@@ -12,21 +11,10 @@ namespace TestWebApi.Services
     public class PostOrderService : IPostOrderService
     {
         readonly ApplicationContext _context;
-        readonly JsonSerializerOptions _serializerOptions;
 
         public PostOrderService(ApplicationContext context)
         {
             _context = context;
-            _serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                Converters =
-                    {
-                        new Int32Converter(),
-                        new Int64Converter(),
-                        new DecimalConverter()       
-                    }
-            };
         }
 
         public async Task <bool> PostAsync(SystemType type, Stream requestBody)
@@ -44,7 +32,7 @@ namespace TestWebApi.Services
         private OrderModel FillOrderModel(string requestResult, SystemType type)
         {
             
-            RawOrderModel sourceOrder = JsonSerializer.Deserialize<RawOrderModel>(requestResult, _serializerOptions);
+            RawOrderModel sourceOrder = JsonSerializer.Deserialize<RawOrderModel>(requestResult, Constants.SerializeOptions.CustomOptions());
             return new OrderModel()
             {
                 OrderNumber = sourceOrder.OrderNumber,

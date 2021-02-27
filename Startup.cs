@@ -48,6 +48,7 @@ namespace TestWebApi
 
             services.AddScoped<IPostOrderService, PostOrderService>();
             services.AddScoped<IOrdersProcessor, OrdersProcessor>();
+            services.AddScoped<IOrdersProcessorLogger, OrdersProcessorLogger>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
