@@ -7,10 +7,10 @@ namespace TestWebApi.Models
 {
     public class OrderModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Column(TypeName = "TEXT")]
         public SystemType SystemType { get; set; }
-        public string OrderNumber { get; set; }
+        public long OrderNumber { get; set; }
         public string SourceOrder { get; set; }
         public string ConvertedOrder { get; set; }
         public DateTime CreatedAt { get; set; }

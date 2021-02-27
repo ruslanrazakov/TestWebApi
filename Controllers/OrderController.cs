@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestWebApi.Models;
 using TestWebApi.Services;
@@ -27,7 +20,7 @@ namespace TestWebApi.Controllers
         [Route("talabat")]
         public async Task<ActionResult> PostTalabatOrderModel()
         {
-            bool success = await _postOrderService.PostOrder(SystemType.Talabat, Request.Body);
+            bool success = await _postOrderService.Post(SystemType.Talabat, Request.Body);
             if(success)
                 return Ok();
             else
@@ -38,7 +31,7 @@ namespace TestWebApi.Controllers
         [Route("zomato")]
         public async Task<ActionResult<OrderModel>> PostZomatoOrderModel()
         {
-            bool success = await _postOrderService.PostOrder(SystemType.Zomato, Request.Body);
+            bool success = await _postOrderService.Post(SystemType.Zomato, Request.Body);
             if(success)
                 return Ok();
             else
@@ -49,12 +42,11 @@ namespace TestWebApi.Controllers
         [Route("uber")]
         public async Task<ActionResult<OrderModel>> PostUberOrderModel()
         {
-            bool success = await _postOrderService.PostOrder(SystemType.Uber, Request.Body);
+            bool success = await _postOrderService.Post(SystemType.Uber, Request.Body);
             if(success)
                 return Ok();
             else
                 return BadRequest();
         }
-
     }
 }

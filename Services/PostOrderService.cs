@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using TestWebApi.Converters;
 using TestWebApi.Data;
 using TestWebApi.Models;
 
@@ -17,7 +18,7 @@ namespace TestWebApi.Services
             _context = context;
         }
 
-        public async Task <bool> PostOrder(SystemType type, Stream requestBody)
+        public async Task <bool> Post(SystemType type, Stream requestBody)
         {
             string requestResult = String.Empty;
             using (StreamReader reader = new StreamReader(requestBody, Encoding.UTF8))
@@ -30,8 +31,13 @@ namespace TestWebApi.Services
 
             var serializeOptions = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true
-                
+                PropertyNameCaseInsensitive = true,
+                Converters =
+                    {
+                        new Int32Converter(),
+                        new Int64Converter(),
+                        new DecimalConverter()       
+                    }
             };
 
             RawOrderModel sourceOrder = JsonSerializer.Deserialize<RawOrderModel>(requestResult, serializeOptions);
