@@ -14,6 +14,10 @@ using Microsoft.Extensions.Logging;
 using TestWebApi.Data;
 using TestWebApi.Models;
 using TestWebApi.Services;
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.AspNetCore;
+using Hangfire.MemoryStorage;
 
 namespace TestWebApi
 {
@@ -26,7 +30,6 @@ namespace TestWebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -38,16 +41,23 @@ namespace TestWebApi
                     options.JsonSerializerOptions.Converters.Add(new Converters.CustomJsonStringEnumConverter());
                 });
 
-            services.AddScoped<IPostOrderService, PostOrderService>();  
+            services.AddHangfire(config =>
+            {
+                config.UseMemoryStorage();
+            });
+
+            services.AddScoped<IPostOrderService, PostOrderService>();
+            services.AddScoped<IOrdersProcessor, OrdersProcessor>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHangfireServer();
 
             app.UseHttpsRedirection();
 
@@ -59,6 +69,8 @@ namespace TestWebApi
             {
                 endpoints.MapControllers();
             });
+
+            RecurringJob.AddOrUpdate((IOrdersProcessor o) => o.Init(), Constants.Strings.cronEveryFiveMinute);
         }
     }
 }
